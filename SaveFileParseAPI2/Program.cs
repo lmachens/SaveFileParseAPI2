@@ -7,6 +7,15 @@ var app = builder.Build();
 
 var count = 0;
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Access-Control-Allow-Headers", "*");
+    context.Response.Headers.Add("Access-Control-Allow-Methods", "*");
+    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    await next.Invoke();
+});
+
+
 app.MapGet("/", () => "Hello World!");
 
 
